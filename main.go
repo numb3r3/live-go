@@ -11,9 +11,9 @@ import (
 
 var (
 	version        = "master"
-	configfilename = flag.String("config", "default_config.yaml", "configure filename")
-	loglevel       = flag.String("loglevel", "info", "log level")
-	logfile        = flag.String("logfile", "console.log", "log file path")
+	configFileName = flag.String("config", "default_config", "configure filename")
+	logLevel       = flag.String("loglevel", "info", "log level")
+	logFile        = flag.String("logfile", "console.log", "log file path")
 	argHelp        = flag.Bool("help", false, "Shows the help and usage instead of running the broker.")
 )
 
@@ -23,16 +23,16 @@ func init() {
 		flag.PrintDefaults()
 		os.Exit(1)
 	}
-	// logging.SetOutputByName(*logfile)
+	// logging.SetOutputByName(*logFile)
 	// logging.SetRotateByDay()
-	// logging.SetLevelByString(*loglevel)
+	// logging.SetLevelByString(*logLevel)
 
 }
 
 func main() {
 	logging.Info("start h5-rtms-server: ", version)
 
-	cfg, err := config.ReadConfig("default_config.yaml", map[string]interface{}{
+	cfg, err := config.ReadConfig(*configFileName, map[string]interface{}{
 		"port":     9090,
 		"hostname": "localhost",
 		"auth": map[string]string{

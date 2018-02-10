@@ -96,7 +96,7 @@ DIST_PATH=$(DIST_ROOT)/h5-rtms-server
 TESTS=.
 
 build:
-	${GO_EXECUTABLE} build -o h5-rtms-server -ldflags "-X main.version=${VERSION}" main.go
+	${GO_EXECUTABLE} build -o starter -ldflags "-X main.version=${VERSION}" main.go
 
 fmt:
 	gofmt -w=true -s $$(find . -type f -name '*.go')
