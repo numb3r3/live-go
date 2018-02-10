@@ -11,3 +11,4 @@ import:
   - golint
 - package: github.com/spf13/viper
 - package: github.com/gorilla/websocket
+- package: github.com/kelindar/binary
