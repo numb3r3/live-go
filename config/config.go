@@ -4,7 +4,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-func readConfig(filename string, defaults map[string]interface{}) (*viper.Viper, error) {
+func ReadConfig(filename string, defaults map[string]interface{}) (*viper.Viper, error) {
 	v := viper.New()
 	for key, value := range defaults {
 		v.SetDefault(key, value)
