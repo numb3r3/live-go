@@ -1,0 +1,13 @@
+package: .
+import:
+- package: github.com/mattn/goveralls
+- package: github.com/pborman/uuid
+- package: github.com/golang/tools
+- package: golang.org/x/tools
+  subpackages:
+  - cover
+- package: github.com/golang/lint
+  subpackages:
+  - golint
+- package: github.com/spf13/viper
+- package: github.com/gorilla/websocket
