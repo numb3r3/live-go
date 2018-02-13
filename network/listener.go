@@ -28,10 +28,8 @@ func (e errListenerClosed) Timeout() bool   { return false }
 // listener is closed.
 var ErrListenerClosed = errListenerClosed("mux: listener closed")
 
-
 // for readability of readTimeout
 var noTimeout time.Duration
-
 
 // New announces on the local network address laddr. The syntax of laddr is
 // "host:port", like "127.0.0.1:8080". If host is omitted, as in ":8080",
@@ -81,7 +79,6 @@ func (m *Listener) SetReadTimeout(t time.Duration) {
 	m.readTimeout = t
 }
 
-
 // Serve starts multiplexing the listener.
 func (m *Listener) Serve() error {
 	var wg sync.WaitGroup
@@ -109,7 +106,6 @@ func (m *Listener) Serve() error {
 
 func (m *Listener) serve(c net.Conn, donec <-chan struct{}, wg *sync.WaitGroup) {
 	defer wg.Done()
-
 
 	_ = c.Close()
 	err := ErrNotMatched{c: c}
@@ -154,7 +150,6 @@ func (l muxListener) Accept() (net.Conn, error) {
 	}
 	return c, nil
 }
-
 
 // ------------------------------------------------------------------------------------
 
@@ -224,4 +219,3 @@ func (s *sniffer) reset(snif bool) {
 	s.bufferRead = 0
 	s.bufferSize = s.buffer.Len()
 }
-

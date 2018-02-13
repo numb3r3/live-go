@@ -1,41 +1,37 @@
 package broker
 
-
 import (
-
 	"fmt"
 	"io/ioutil"
 	"net"
 	"net/http"
 	"time"
 
-	"github.com/spf13/viper"
 	"github.com/gorilla/websocket"
 	"github.com/numb3r3/h5-rtms-server/log"
+	"github.com/spf13/viper"
 )
 
 // The default upgrader to use
 var upgrader = &websocket.Upgrader{
-	CheckOrigin:  func(r *http.Request) bool { return true },
+	CheckOrigin: func(r *http.Request) bool { return true },
 }
-
 
 // Service represents the main structure.
 type Service struct {
-	Closing       chan bool                 // The channel for closing signal.
-	Config        *viper.Viper            	// The configuration for the service.
-	http          *http.Server              // The underlying HTTP server.
-	startTime     time.Time                 // The start time of the service.
-	connections   int64                     // The number of currently open connections.
+	Closing     chan bool    // The channel for closing signal.
+	Config      *viper.Viper // The configuration for the service.
+	http        *http.Server // The underlying HTTP server.
+	startTime   time.Time    // The start time of the service.
+	connections int64        // The number of currently open connections.
 }
-
 
 // NewService creates a new service.
 func NewService(cfg *viper.Viper) (s *Service, err error) {
 	s = &Service{
-		Closing:       make(chan bool),
-		Config:        cfg,
-		http:          new(http.Server),
+		Closing: make(chan bool),
+		Config:  cfg,
+		http:    new(http.Server),
 	}
 
 	// Create a new HTTP request multiplexer
@@ -44,14 +40,13 @@ func NewService(cfg *viper.Viper) (s *Service, err error) {
 
 	// Attach handlers
 	s.http.Handler = mux
-	
+
 	return s, nil
 }
 
 // Listen starts the service.
 func (s *Service) Listen() (err error) {
 	defer s.Close()
-	
 
 	// Setup the listeners on both default and a secure addresses
 	s.listen(s.Config.ListenAddr)

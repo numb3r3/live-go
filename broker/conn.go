@@ -4,22 +4,21 @@ import (
 	"bufio"
 	"fmt"
 	"net"
+	"runtime/debug"
 	"sync"
 	"sync/atomic"
 	"time"
-	"runtime/debug"
 
 	"github.com/numb3r3/h5-rtms-server/log"
-
 )
 
 // Conn represents an incoming connection.
 type Conn struct {
 	sync.Mutex
-	tracked uint32
-	socket net.Conn
+	tracked  uint32
+	socket   net.Conn
 	username string
-	guid string
+	guid     string
 }
 
 // NewConn creates a new connection.
@@ -27,7 +26,7 @@ func (s *Service) newConn(t net.Conn) *Conn {
 	c := &Conn{
 		tracked: 0,
 		service: s,
-		socket: t,
+		socket:  t,
 	}
 
 	// TODO: generate a global unique id
@@ -39,7 +38,6 @@ func (s *Service) newConn(t net.Conn) *Conn {
 	return c
 }
 
-
 // Process processes the messages.
 func (c *Conn) Process() error {
 	defer c.Close()
@@ -50,10 +48,9 @@ func (c *Conn) Process() error {
 		c.socket.SetDeadline(time.Now().Add(time.Second * 120))
 
 		// Decode an incoming package
-		
+
 	}
 }
-
 
 // Close terminates the connection.
 func (c *Conn) Close() error {
