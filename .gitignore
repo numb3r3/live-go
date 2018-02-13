@@ -30,5 +30,6 @@ status-prd.html
 .DS_Store
 *~
 vendor/*/
+glide.lock
 
 starter
