@@ -48,14 +48,14 @@ func TryUpgrade(w http.ResponseWriter, r *http.Request) (net.Conn, bool) {
 	}
 
 	if ws, err := upgrader.Upgrade(w, r, nil); err == nil {
-		return newConn(ws), true
+		return newWebsocketConn(ws), true
 	}
 
 	return nil, false
 }
 
-// newConn creates a new transport from websocket.
-func newConn(ws websocketConn) net.Conn {
+// newWebsocketConn creates a new transport from websocket.
+func newWebsocketConn(ws websocketConn) net.Conn {
 	conn := &websocketTransport{
 		socket:  ws,
 		closing: make(chan bool),
