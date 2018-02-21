@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/numb3r3/h5-rtms-server/log"
+	"github.com/numb3r3/h5-rtms-server/utils"
 )
 
 // Conn represents an incoming connection.
@@ -18,7 +19,9 @@ type Conn struct {
 	tracked  uint32
 	socket   net.Conn
 	username string
+	service  *service 			// The service for this connection.
 	guid     string
+	subs     *utils.Counters	// The subscriptions for this connection.
 }
 
 // NewConn creates a new connection.
@@ -27,6 +30,7 @@ func (s *Service) newConn(t net.Conn) *Conn {
 		tracked: 0,
 		service: s,
 		socket:  t,
+		subs:    message.NewCounters(),
 	}
 
 	// TODO: generate a global unique id

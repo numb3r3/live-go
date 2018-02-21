@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/numb3r3/h5-rtms-server/broker"
 	"github.com/numb3r3/h5-rtms-server/config"
 	"github.com/numb3r3/h5-rtms-server/log"
-	"github.com/numb3r3/h5-rtms-server/broker"
 )
 
 var (
@@ -34,8 +34,8 @@ func main() {
 	logging.Info("start h5-rtms-server: ", version)
 
 	cfg, err := config.ReadConfig(*configFileName, map[string]interface{}{
-		"port":     9090,
-		"hostname": "localhost",
+		"port":        9090,
+		"hostname":    "localhost",
 		"listen_addr": "0.0.0.0:9090",
 		"auth": map[string]string{
 			"username": "numb3r3",
