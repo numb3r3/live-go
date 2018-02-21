@@ -37,6 +37,10 @@ else
 	@echo "Not installing golint, since we don't expect to lint on" $(GO_VERSION)
 endif
 
+.PHONY: up
+up:
+	glide cc && glide up
+
 # Disable printf-like invocation checking due to testify.assert.Error()
 VET_RULES := -printf=false
 

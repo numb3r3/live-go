@@ -18,7 +18,7 @@ type Conn struct {
 	tracked  uint32
 	socket   net.Conn
 	username string
-	service  *service // The service for this connection.
+	service  *Service // The service for this connection.
 	guid     string
 }
 
