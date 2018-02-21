@@ -42,7 +42,7 @@ func (s *Service) newConn(t net.Conn) *Conn {
 // Process processes the messages.
 func (c *Conn) Process() error {
 	defer c.Close()
-	reader := bufio.NewReaderSize(c.socket, 65536)
+	// reader := bufio.NewReaderSize(c.socket, 65536)
 
 	for {
 		// Set read/write deadlines so we can close dangling connections
