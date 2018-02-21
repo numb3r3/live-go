@@ -79,7 +79,7 @@ func (s *Service) onAcceptConn(t net.Conn) {
 
 // Occurs when a new HTTP request is received.
 func (s *Service) onRequest(w http.ResponseWriter, r *http.Request) {
-	if ws, ok := TryUpgrade(w, r); ok {
+	if ws, ok := websocket.TryUpgrade(w, r); ok {
 		s.onAcceptConn(ws)
 		return
 	}
