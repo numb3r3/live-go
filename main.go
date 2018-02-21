@@ -34,8 +34,6 @@ func main() {
 	logging.Info("start h5-rtms-server: ", version)
 
 	cfg, err := config.ReadConfig(*configFileName, map[string]interface{}{
-		"port":        9090,
-		"hostname":    "localhost",
 		"listen_addr": "0.0.0.0:9090",
 		"auth": map[string]string{
 			"username": "numb3r3",
@@ -46,8 +44,6 @@ func main() {
 		logging.Fatal(err)
 		panic(fmt.Errorf("Error when reading config: %v", err))
 	}
-
-	logging.Infof("Host: %s", cfg.GetString("hostname"))
 
 	// Setup the new service
 	svc, err := broker.NewService(cfg)

@@ -8,6 +8,7 @@ import (
 	// "github.com/gorilla/websocket"
 	"github.com/numb3r3/h5-rtms-server/log"
 	"github.com/numb3r3/h5-rtms-server/network/websocket"
+	"github.com/numb3r3/h5-rtms-server/network/listener"
 	"github.com/spf13/viper"
 )
 
@@ -57,10 +58,10 @@ func (s *Service) Listen() (err error) {
 func (s *Service) listen(address string) {
 	logging.Info("service", "starting the listener", address)
 
-	// l, err := listener.New(address)
-	// if err != nil {
-	// 	panic(err)
-	// }
+	l, err := listener.NewListener(address)
+	if err != nil {
+		panic(err)
+	}
 
 	// // Set the read timeout on our mux listener
 	// l.SetReadTimeout(120 * time.Second)

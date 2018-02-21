@@ -1,4 +1,4 @@
-package network
+package listener
 
 import (
 	"bytes"
@@ -49,12 +49,12 @@ var ErrListenerClosed = errListenerClosed("mux: listener closed")
 // for readability of readTimeout
 var noTimeout time.Duration
 
-// New announces on the local network address laddr. The syntax of laddr is
+// NewListener announces on the local network address laddr. The syntax of laddr is
 // "host:port", like "127.0.0.1:8080". If host is omitted, as in ":8080",
 // New listens on all available interfaces instead of just the interface
 // with the given host address. Listening on a hostname is not recommended
 // because this creates a socket for at most one of its IP addresses.
-func New(address string) (*Listener, error) {
+func NewListener(address string) (*Listener, error) {
 	l, err := net.Listen("tcp", address)
 	if err != nil {
 		return nil, err
