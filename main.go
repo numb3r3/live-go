@@ -7,6 +7,7 @@ import (
 
 	"github.com/numb3r3/h5-rtms-server/config"
 	"github.com/numb3r3/h5-rtms-server/log"
+	"github.com/numb3r3/h5-rtms-server/broker"
 )
 
 var (
@@ -35,6 +36,7 @@ func main() {
 	cfg, err := config.ReadConfig(*configFileName, map[string]interface{}{
 		"port":     9090,
 		"hostname": "localhost",
+		"listen_addr": "0.0.0.0:9090",
 		"auth": map[string]string{
 			"username": "numb3r3",
 			"password": "314159",
@@ -46,5 +48,14 @@ func main() {
 	}
 
 	logging.Infof("Host: %s", cfg.GetString("hostname"))
+
+	// Setup the new service
+	svc, err := broker.NewService(cfg)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	// Listen and serve
+	svc.Listen()
 
 }

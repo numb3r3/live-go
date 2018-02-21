@@ -49,7 +49,7 @@ func (s *Service) Listen() (err error) {
 	defer s.Close()
 
 	// Setup the listeners on both default and a secure addresses
-	s.listen(s.Config.ListenAddr)
+	s.listen(s.Config.GetString("listen_addr"))
 
 	// Set the start time and report status
 	s.startTime = time.Now().UTC()
@@ -63,18 +63,18 @@ func (s *Service) Listen() (err error) {
 func (s *Service) listen(address string) {
 	logging.Info("service", "starting the listener", address)
 
-	l, err := listener.New(address)
-	if err != nil {
-		panic(err)
-	}
+	// l, err := listener.New(address)
+	// if err != nil {
+	// 	panic(err)
+	// }
 
-	// Set the read timeout on our mux listener
-	l.SetReadTimeout(120 * time.Second)
+	// // Set the read timeout on our mux listener
+	// l.SetReadTimeout(120 * time.Second)
 
-	// Configure the matchers
-	l.ServeAsync(s.http.Serve)
-	// l.ServeAsync(listener.MatchAny(), s.tcp.Serve)
-	go l.Serve()
+	// // Configure the matchers
+	// l.ServeAsync(s.http.Serve)
+	// // l.ServeAsync(listener.MatchAny(), s.tcp.Serve)
+	// go l.Serve()
 }
 
 // Occurs when a new client connection is accepted.
