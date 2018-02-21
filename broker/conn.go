@@ -51,7 +51,7 @@ func (c *Conn) Process() error {
 
 		// Decode an incoming package
 		b := make([]byte, 1)
-		if _, err = io.ReadFull(rdr, b); err != nil {
+		if _, err := io.ReadFull(rdr, b); err != nil {
 			return nil, 0, 0, err
 		}
 
