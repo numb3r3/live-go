@@ -10,7 +10,6 @@ import (
 	"time"
 
 	"github.com/numb3r3/h5-rtms-server/log"
-	"github.com/numb3r3/h5-rtms-server/utils"
 )
 
 // Conn represents an incoming connection.
@@ -19,9 +18,8 @@ type Conn struct {
 	tracked  uint32
 	socket   net.Conn
 	username string
-	service  *service 			// The service for this connection.
+	service  *service // The service for this connection.
 	guid     string
-	subs     *utils.Counters	// The subscriptions for this connection.
 }
 
 // NewConn creates a new connection.
@@ -30,7 +28,6 @@ func (s *Service) newConn(t net.Conn) *Conn {
 		tracked: 0,
 		service: s,
 		socket:  t,
-		subs:    message.NewCounters(),
 	}
 
 	// TODO: generate a global unique id
@@ -59,13 +56,6 @@ func (c *Conn) Process() error {
 // Close terminates the connection.
 func (c *Conn) Close() error {
 	logging.Info("connection closed.")
-
-	// Unsubscribe from everything, no need to lock since each Unsubscribe is
-	// already locked. Locking the 'Close()' would result in a deadlock.
-	for _, counter := range c.subs.All() {
-		c.service.onUnsubscribe(counter.Ssid, c)
-		c.service.notifyUnsubscribe(c, counter.Ssid, counter.Channel)
-	}
 
 	// Attempt to recover a panic
 	if r := recover(); r != nil {
