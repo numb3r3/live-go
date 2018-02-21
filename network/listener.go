@@ -18,10 +18,6 @@ type Server interface {
 // it should continue serving.
 type ErrorHandler func(error) bool
 
-// ErrorHandler handles an error and notifies the listener on whether
-// it should continue serving.
-type ErrorHandler func(error) bool
-
 var _ net.Error = ErrNotMatched{}
 
 // ErrNotMatched is returned whenever a connection is not matched by any of
