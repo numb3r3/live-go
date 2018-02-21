@@ -7,7 +7,7 @@ import (
 
 	// "github.com/gorilla/websocket"
 	"github.com/numb3r3/h5-rtms-server/log"
-	"github.com/numb3r3/h5-rtms-server/network"
+	"github.com/numb3r3/h5-rtms-server/network/websocket"
 	"github.com/spf13/viper"
 )
 
