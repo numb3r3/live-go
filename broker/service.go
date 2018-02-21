@@ -15,6 +15,19 @@ var upgrader = &websocket.Upgrader{
 	CheckOrigin: func(r *http.Request) bool { return true },
 }
 
+// TryUpgrade attempts to upgrade an HTTP request to mqtt over websocket.
+func TryUpgrade(w http.ResponseWriter, r *http.Request) (net.Conn, bool) {
+	if w == nil || r == nil {
+		return nil, false
+	}
+
+	if ws, err := upgrader.Upgrade(w, r, nil); err == nil {
+		return newConn(ws), true
+	}
+
+	return nil, false
+}
+
 // Service represents the main structure.
 type Service struct {
 	Closing     chan bool    // The channel for closing signal.
@@ -83,7 +96,7 @@ func (s *Service) onAcceptConn(t net.Conn) {
 
 // Occurs when a new HTTP request is received.
 func (s *Service) onRequest(w http.ResponseWriter, r *http.Request) {
-	if ws, ok := upgrader.Upgrade(w, r); ok {
+	if ws, ok := TryUpgrade(w, r); ok {
 		s.onAcceptConn(ws)
 		return
 	}
