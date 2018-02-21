@@ -68,8 +68,8 @@ func (s *Service) listen(address string) {
 
 	l.ServeAsync(s.http.Serve)
 	
-	// // l.ServeAsync(listener.MatchAny(), s.tcp.Serve)
-	// go l.Serve()
+	// l.ServeAsync(listener.MatchAny(), s.tcp.Serve)
+	go l.Serve()
 }
 
 // Occurs when a new client connection is accepted.
