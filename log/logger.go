@@ -252,10 +252,12 @@ func (l *logger) doRotate(suffix string) error {
 	return nil
 }
 
+// SetOutput set the output.
 func (l *logger) SetOutput(out io.Writer) {
 	l._log = log.New(out, l._log.Prefix(), l._log.Flags())
 }
 
+// SetOutputByName set the ouput filename.
 func (l *logger) SetOutputByName(path string) error {
 	f, err := os.OpenFile(path, os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
 	if err != nil {
@@ -271,6 +273,7 @@ func (l *logger) SetOutputByName(path string) error {
 	return err
 }
 
+// log outputs the string of with level to the writer.
 func (l *logger) log(t LogType, v ...interface{}) {
 	if l.level|LogLevel(t) != l.level {
 		return
@@ -298,6 +301,7 @@ func (l *logger) log(t LogType, v ...interface{}) {
 	l._log.Output(4, s)
 }
 
+// logf outputs the formated string of with level to the writer.
 func (l *logger) logf(t LogType, format string, v ...interface{}) {
 	if l.level|LogLevel(t) != l.level {
 		return
@@ -319,44 +323,54 @@ func (l *logger) logf(t LogType, format string, v ...interface{}) {
 	l._log.Output(4, s)
 }
 
+// Fatal output the fatal info .
 func (l *logger) Fatal(v ...interface{}) {
 	l.log(LOG_FATAL, v...)
 	os.Exit(-1)
 }
 
+// Fatalf output the formated fatal info .
 func (l *logger) Fatalf(format string, v ...interface{}) {
 	l.logf(LOG_FATAL, format, v...)
 	os.Exit(-1)
 }
 
+// Error output the error info .
 func (l *logger) Error(v ...interface{}) {
 	l.log(LOG_ERROR, v...)
 }
 
+// Errorf output the formated error info .
 func (l *logger) Errorf(format string, v ...interface{}) {
 	l.logf(LOG_ERROR, format, v...)
 }
 
+// Warning output the warning info .
 func (l *logger) Warning(v ...interface{}) {
 	l.log(LOG_WARNING, v...)
 }
 
+// Warningf output the formated warning info .
 func (l *logger) Warningf(format string, v ...interface{}) {
 	l.logf(LOG_WARNING, format, v...)
 }
 
+// Debug output the debug info if DEBUG is set to true.
 func (l *logger) Debug(v ...interface{}) {
 	l.log(LOG_DEBUG, v...)
 }
 
+// Debugf output the formated debug info if DEBUG is set to true.
 func (l *logger) Debugf(format string, v ...interface{}) {
 	l.logf(LOG_DEBUG, format, v...)
 }
 
+// Info output the info.
 func (l *logger) Info(v ...interface{}) {
 	l.log(LOG_INFO, v...)
 }
 
+// Infof output the formated info.
 func (l *logger) Infof(format string, v ...interface{}) {
 	l.logf(LOG_INFO, format, v...)
 }

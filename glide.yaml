@@ -1,4 +1,4 @@
-package: .
+package: github.com/numb3r3/h5-rtms-server
 import:
 - package: github.com/mattn/goveralls
 - package: github.com/pborman/uuid
