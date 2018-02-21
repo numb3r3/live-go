@@ -1,4 +1,4 @@
-package websocket
+package network
 
 import (
 	"io"
