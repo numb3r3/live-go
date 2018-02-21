@@ -1,8 +1,8 @@
 package broker
 
 import (
-	"io"
-	"bufio"
+	// "io"
+	// "bufio"
 	"fmt"
 	"net"
 	"runtime/debug"
@@ -43,17 +43,18 @@ func (s *Service) newConn(t net.Conn) *Conn {
 // Process processes the messages.
 func (c *Conn) Process() error {
 	defer c.Close()
-	reader := bufio.NewReaderSize(c.socket, 65536)
+	// reader := bufio.NewReaderSize(c.socket, 65536)
 
 	for {
 		// Set read/write deadlines so we can close dangling connections
 		c.socket.SetDeadline(time.Now().Add(time.Second * 120))
 
 		// Decode an incoming package
-		b := make([]byte, 1)
-		if _, err := io.ReadFull(rdr, b); err != nil {
-			return nil, 0, 0, err
-		}
+		
+		// b := make([]byte, 1)
+		// if _, err := io.ReadFull(reader, b); err != nil {
+		// 	return nil, 0, 0, err
+		// }
 
 	}
 }
