@@ -66,8 +66,8 @@ func (s *Service) listen(address string) {
 	// Set the read timeout on our mux listener
 	l.SetReadTimeout(120 * time.Second)
 
-	// // Configure the matchers
-	// l.ServeAsync(s.http.Serve)
+	l.ServeAsync(s.http.Serve)
+	
 	// // l.ServeAsync(listener.MatchAny(), s.tcp.Serve)
 	// go l.Serve()
 }
