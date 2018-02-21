@@ -5,28 +5,11 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/gorilla/websocket"
+	// "github.com/gorilla/websocket"
 	"github.com/numb3r3/h5-rtms-server/log"
+	"github.com/numb3r3/h5-rtms-server/network"
 	"github.com/spf13/viper"
 )
-
-// The default upgrader to use
-var upgrader = &websocket.Upgrader{
-	CheckOrigin: func(r *http.Request) bool { return true },
-}
-
-// TryUpgrade attempts to upgrade an HTTP request to mqtt over websocket.
-func TryUpgrade(w http.ResponseWriter, r *http.Request) (net.Conn, bool) {
-	if w == nil || r == nil {
-		return nil, false
-	}
-
-	if ws, err := upgrader.Upgrade(w, r, nil); err == nil {
-		return newConn(ws), true
-	}
-
-	return nil, false
-}
 
 // Service represents the main structure.
 type Service struct {
