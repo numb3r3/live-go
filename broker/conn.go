@@ -50,7 +50,7 @@ func (c *Conn) Process() error {
 		c.socket.SetDeadline(time.Now().Add(time.Second * 120))
 
 		// Decode an incoming package
-		
+
 		// b := make([]byte, 1)
 		// if _, err := io.ReadFull(reader, b); err != nil {
 		// 	return nil, 0, 0, err
