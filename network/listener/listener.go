@@ -87,12 +87,12 @@ func (m *Listener) Accept() (net.Conn, error) {
 
 // ServeAsync adds a protocol based on the matcher and serves it.
 func (m *Listener) ServeAsync(serve func(l net.Listener) error) {
-	ml := muxListener{
-		Listener:    m.root,
-		connections: make(chan net.Conn, m.bufferSize),
-	}
-	logging.info("listener start serve.")
-	go serve(ml)
+	// ml := muxListener{
+	// 	Listener:    m.root,
+	// 	connections: make(chan net.Conn, m.bufferSize),
+	// }
+	// go serve(m.root)
+	go serve(m.root)
 }
 
 // SetReadTimeout sets a timeout for the read of matchers.
@@ -129,8 +129,10 @@ func (m *Listener) serve(c net.Conn, donec <-chan struct{}, wg *sync.WaitGroup) 
 	defer wg.Done()
 
 	_ = c.Close()
+	logging.info("connection closed.")
 	err := ErrNotMatched{c: c}
 	if !m.handleErr(err) {
+		logging.info("listener closed as %s", fmt.Errorf("Error when reading config: %v", err))
 		_ = m.root.Close()
 	}
 }
@@ -157,20 +159,20 @@ func (m *Listener) Close() error {
 	return m.root.Close()
 }
 
-// ------------------------------------------------------------------------------------
+// // ------------------------------------------------------------------------------------
 
-type muxListener struct {
-	net.Listener
-	connections chan net.Conn
-}
+// type muxListener struct {
+// 	net.Listener
+// 	connections chan net.Conn
+// }
 
-func (l muxListener) Accept() (net.Conn, error) {
-	c, ok := <-l.connections
-	if !ok {
-		return nil, ErrListenerClosed
-	}
-	return c, nil
-}
+// func (l muxListener) Accept() (net.Conn, error) {
+// 	c, ok := <-l.connections
+// 	if !ok {
+// 		return nil, ErrListenerClosed
+// 	}
+// 	return c, nil
+// }
 
 // ------------------------------------------------------------------------------------
 
