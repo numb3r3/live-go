@@ -23,9 +23,14 @@ all: lint test
 
 .PHONY: setup-ci
 setup-ci:
-	@echo "Installing Glide and locked dependencies..."
-	glide --version || go get -u -f github.com/Masterminds/glide
-	glide install
+	@echo "Installing development dependencies..."
+	go get -u -f golang.org/x/tools/cmd/goimports
+	go get -u -f golang.org/x/tools/cmd/cover
+	@echo "Installing dependencies..."
+	go get -u -f github.com/pborman/uuid
+	go get -u -f github.com/golang/lint
+	go get -u -f github.com/spf13/viper
+	go get -u -f github.com/gorilla/websocket
 	@echo "Installing test dependencies..."
 	go get -u -f github.com/axw/gocov
 	go get -u -f github.com/mattn/goveralls
@@ -37,9 +42,6 @@ else
 	@echo "Not installing golint, since we don't expect to lint on" $(GO_VERSION)
 endif
 
-.PHONY: up
-up:
-	glide cc && glide up
 
 # Disable printf-like invocation checking due to testify.assert.Error()
 VET_RULES := -printf=false
