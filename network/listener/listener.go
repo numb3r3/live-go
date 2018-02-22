@@ -65,6 +65,7 @@ func NewListener(address string) (*Listener, error) {
 	return &Listener{
 		root:         l,
 		bufferSize:   1024,
+		connections: make(chan net.Conn, 1024),
 		errorHandler: func(_ error) bool { return true },
 		closing:      make(chan struct{}),
 		readTimeout:  noTimeout,
@@ -75,6 +76,7 @@ func NewListener(address string) (*Listener, error) {
 type Listener struct {
 	root         net.Listener
 	bufferSize   int
+	connections chan net.Conn
 	errorHandler ErrorHandler
 	closing      chan struct{}
 	readTimeout  time.Duration
@@ -131,6 +133,16 @@ func (m *Listener) serve(c net.Conn, donec <-chan struct{}, wg *sync.WaitGroup) 
 	muc := newConn(c)
 	if m.readTimeout > noTimeout {
 		_ = c.SetReadDeadline(time.Now().Add(m.readTimeout))
+	}
+
+	muc.doneSniffing()
+	if m.readTimeout > noTimeout {
+		_ = c.SetReadDeadline(time.Time{})
+	}
+	select {
+	case m.connections <- muc:
+	case <-donec:
+		_ = c.Close()
 	}
 
 	_ = c.Close()
