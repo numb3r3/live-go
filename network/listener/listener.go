@@ -145,8 +145,8 @@ func (m *Listener) serve(c net.Conn, donec <-chan struct{}, wg *sync.WaitGroup) 
 		_ = c.Close()
 	}
 
-	_ = c.Close()
-	logging.Info("connection closed.")
+	// _ = c.Close()
+	// logging.Info("connection closed.")
 	err := ErrNotMatched{c: c}
 	if !m.handleErr(err) {
 		logging.Info("listener closed as %s", fmt.Errorf("Error when reading config: %v", err))
