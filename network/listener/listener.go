@@ -128,6 +128,11 @@ func (m *Listener) Serve() error {
 func (m *Listener) serve(c net.Conn, donec <-chan struct{}, wg *sync.WaitGroup) {
 	defer wg.Done()
 
+	muc := newConn(c)
+	if m.readTimeout > noTimeout {
+		_ = c.SetReadDeadline(time.Now().Add(m.readTimeout))
+	}
+
 	_ = c.Close()
 	logging.Info("connection closed.")
 	err := ErrNotMatched{c: c}
