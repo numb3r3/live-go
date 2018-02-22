@@ -7,6 +7,8 @@ import (
 	"net"
 	"sync"
 	"time"
+
+	"github.com/numb3r3/h5-rtms-server/log"
 )
 
 // Server represents a server which can serve requests.
@@ -89,6 +91,7 @@ func (m *Listener) ServeAsync(serve func(l net.Listener) error) {
 		Listener:    m.root,
 		connections: make(chan net.Conn, m.bufferSize),
 	}
+	logging.info("listener start serve.")
 	go serve(ml)
 }
 
