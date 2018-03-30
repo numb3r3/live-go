@@ -8,9 +8,9 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/numb3r3/h5-rtms-server/log"
-	"github.com/numb3r3/h5-rtms-server/network/listener"
-	"github.com/numb3r3/h5-rtms-server/network/websocket"
+	"github.com/numb3r3/live-go/log"
+	"github.com/numb3r3/live-go/network/listener"
+	"github.com/numb3r3/live-go/network/websocket"
 	"github.com/spf13/viper"
 )
 

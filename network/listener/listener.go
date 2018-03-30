@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/numb3r3/h5-rtms-server/log"
+	"github.com/numb3r3/live-go/log"
 )
 
 // Server represents a server which can serve requests.

@@ -1,5 +1,5 @@
 
-NAME=h5-rtms-server
+NAME=live-go
 
 PKGS ?= $(shell glide novendor)
 # Many Go tools take file globs or directories as arguments instead of packages.
@@ -96,7 +96,7 @@ endif
 
 # Output paths
 DIST_ROOT=dist
-DIST_PATH=$(DIST_ROOT)/h5-rtms-server
+DIST_PATH=$(DIST_ROOT)/live-go
 
 # Tests
 TESTS=.

@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/numb3r3/h5-rtms-server/broker"
-	"github.com/numb3r3/h5-rtms-server/config"
-	"github.com/numb3r3/h5-rtms-server/log"
+	"github.com/numb3r3/live-go/broker"
+	"github.com/numb3r3/live-go/config"
+	"github.com/numb3r3/live-go/log"
 )
 
 var (
@@ -31,7 +31,7 @@ func init() {
 }
 
 func main() {
-	logging.Info("start h5-rtms-server: ", version)
+	logging.Info("start live-go: ", version)
 
 	cfg, err := config.ReadConfig(*configFileName, map[string]interface{}{
 		"listen_addr": "0.0.0.0:9090",

@@ -10,7 +10,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/numb3r3/h5-rtms-server/log"
+	"github.com/numb3r3/live-go/log"
 )
 
 // Conn represents an incoming connection.
