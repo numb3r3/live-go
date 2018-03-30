@@ -52,7 +52,7 @@ func (s *Service) Listen() (err error) {
 
 	// Set the start time and report status
 	s.startTime = time.Now().UTC()
-	logging.Info("service started")
+	logging.Info("live-go service started")
 
 	// Block
 	select {}

@@ -1,5 +1,5 @@
-HTML5 Real Time Media Stream Server
-====================================
+Live Media Stream Server by Golang
+==================================
 
 
 # Features
@@ -11,4 +11,5 @@ HTML5 Real Time Media Stream Server
 # References
 
 - [Good logging library in golang](https://www.quora.com/Which-is-good-logging-library-in-Golang)
+- [Scaling WebSockets](https://hackernoon.com/scaling-websockets-9a31497af051)
 - [Our guild to a golang logs world]()

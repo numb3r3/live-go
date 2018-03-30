@@ -102,7 +102,7 @@ DIST_PATH=$(DIST_ROOT)/live-go
 TESTS=.
 
 build:
-	${GO_EXECUTABLE} build -o starter -ldflags "-X main.version=${VERSION}" main.go
+	${GO_EXECUTABLE} build -o ${NAME} -ldflags "-X main.version=${VERSION}" main.go
 
 fmt:
 	gofmt -w=true -s $$(find . -type f -name '*.go')
